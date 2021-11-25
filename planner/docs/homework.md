@@ -94,7 +94,7 @@ Don't worry this will fail, but that is part of the below exercises.
 
 3. **Publish a Bool message using the previous publisher created** - package: [`interfaces`](https://github.com/kiwicampus/2D-Test-Track-Service-Desk-Project/tree/main/planner/ros2/src/interfaces) file to modify: `interfaces/src/modules/speaker.cpp` -> Use the documentation provided and your logic to discover how to publish a UniquePtr message in a simple publisher, which publish a True value each time a sound is ended and False each time a sound begin. Use the publisher called `m_done_pub`.
 
-4. **Create a condition when a file isn't found** - package: [`interfaces`](https://github.com/kiwicampus/2D-Test-Track-Service-Desk-Project/tree/main/planner/ros2/src/interfaces) file to modify: `interfaces/src/modules/speaker.cpp` -> When a sound track isn't found, play the default sound called `track2` located in the same folder as the another ones. You could test this point using `ROS2 topic pub -1 /device/speaker/command std_msgs/Int8 "data: 2"`.
+4. **Create a condition when a file isn't found** - package: [`interfaces`](https://github.com/kiwicampus/2D-Test-Track-Service-Desk-Project/tree/main/planner/ros2/src/interfaces) file to modify: `interfaces/src/modules/speaker.cpp` -> When a sound track isn't found, play the default sound called `track2` located in the same folder as the another ones. You could test this point using `ros2 topic pub -1 /device/speaker/command std_msgs/Int8 "data: 2"`.
 
 
 If you finish successfully all the points, you must have a window like this (with sounds included): 
@@ -166,17 +166,18 @@ For extra homework we recommend you create a new branch from the developed one w
 
 1. **[+5%/5.0]**: Modify the docker file to source ROS2 and have autocompleted commands like ```ROS2 topic list```.
 2. **[+5%/5.0]**: Make that the Kiwibot image doesn't get distorted when is turning.
-3. **[+15/5.0]**: In the GUI, there's an empty field with the `Porc:???%` value. Find a way to print there the % of the total distance of the routine that the robot has traveled.
+3. **[+15%/5.0]**: In the GUI, there's an empty field with the `Porc:???%` value. Find a way to print there the % of the total distance of the routine that the robot has traveled.
 <img height="300" src="https://user-images.githubusercontent.com/38380745/143324697-a06fb3ae-de62-4d42-8373-0da62e68a314.png">
 
-4. **[+20/5.0]**: Kiwibot's Operations Team asked us to start measuring information about our robot deliveries. They need a record of the deliveries (routines) that our robot have made. Find a way to have a `.csv` file where you will record the information of the executed routines made by the robot, including: date, time, routine id, total distance, total time. This information must be persistent i.e. it shouldn't be erased if you close the window, You decide where this file will be saved, but be sure you don't break anything.
-5. **[+10/5.0]**: Print in the GUI a new line with the total distance traveled by the robot (using the information saved in the point 4). Similar to a tachometer in a car :).
-6. **[+10/5.0]**: Find a way to reset the tachometer from the point 5 using a key.
-7. [+15%/5.0]: Implement a method or way to stop the routine (with a key).
-8. **[+15/5.0]**: Now, we need to be sure that the unfinished routines data are also recorded in our `.csv` file. Here you could add a new "completed" column, and define it as `1 -> completed routines` or `0 -> uncompleted routines`. 
+4. **[+20%/5.0]**: Kiwibot's Operations Team asked us to start measuring information about our robot deliveries. They need a record of the deliveries (routines) that our robot have made. Find a way to have a `.csv` file where you will record the information of the executed routines made by the robot, including: date, time, routine id, total distance, total time. This information must be persistent i.e. it shouldn't be erased if you close the window, You decide where this file will be saved, but be sure you don't break anything.
+5. **[+10%/5.0]**: Print in the GUI a new line with the total distance traveled by the robot (using the information saved in the point 4). Similar to a tachometer in a car :).
+6. **[+10%/5.0]**: Find a way to reset the tachometer from the point 5 using a key.
+7. **[+15%/5.0]:** Implement a method or way to stop the routine (with a key).
+8. **[+15%/5.0]**: Now, we need to be sure that the unfinished routines data are also recorded in our `.csv` file. Here you could add a new "completed" column, and define it as `1 -> completed routines` or `0 -> uncompleted routines`. 
+9. **[+10%/5.0]:** Make that Kiwibot track2.wav don't get distorted. Use: `ros2 topic pub -1 /device/speaker/command std_msgs/Int8 "data: 2"`
 
 
-Total possible Extra points: 100% -> 5.0. Maximum total grade: 10.0/5.0. Complete the point it doesn't mean you have 5.0, you have at least 3.0 but for the rest of the grade will evaluate the performance and the beauty of your solution. To complete these points, probably you will have to modify messages, services, or even create new ones, also topics subscribers and publishers, maybe services, who knows :)
+Total possible Extra points: 105% -> 5.0. Maximum total grade: 10.25/5.0. Complete the point it doesn't mean you have 5.0, you have at least 3.0 but for the rest of the grade will evaluate the performance and the beauty of your solution. To complete these points, probably you will have to modify messages, services, or even create new ones, also topics subscribers and publishers, maybe services, who knows :)
 
 ---
 Good luck, and God saves the Queen.
