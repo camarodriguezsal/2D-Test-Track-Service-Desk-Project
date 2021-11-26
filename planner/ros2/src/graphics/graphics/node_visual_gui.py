@@ -86,6 +86,7 @@ class VisualsNode(Thread, Node):
         # message type: planner_msg
         # callback:cb_path_planner
         # add here your solution
+        # pruebas
 
         # ------------------------------------------
         # TODO: Implement the Kiwibot status subscriber,
@@ -305,7 +306,7 @@ class VisualsNode(Thread, Node):
             dsize=(cols, rows),
             flags=cv2.INTER_CUBIC,
         )
-    
+
     # TODO: Draw the robot
     def draw_robot(
         self, l_img: np.ndarray, s_img: np.ndarray, pos: tuple, transparency=1.0
