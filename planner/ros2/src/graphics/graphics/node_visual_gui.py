@@ -86,7 +86,7 @@ class VisualsNode(Thread, Node):
         # message type: planner_msg
         # callback:cb_path_planner
         # add here your solution
-        # pruebas mas
+        # pruebas
 
         # ------------------------------------------
         # TODO: Implement the Kiwibot status subscriber,
