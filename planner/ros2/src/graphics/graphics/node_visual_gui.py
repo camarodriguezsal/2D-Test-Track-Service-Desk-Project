@@ -101,7 +101,13 @@ class VisualsNode(Thread, Node):
         # callback:cb_kiwibot_status
         # add here your solution
         self.msg_kiwibot = kiwibot_msg()
-
+        self.sub_start_routine = self.create_subscription(
+            msg_type=kiwibot_msg,
+            topic="/kiwibot/status",
+            callback=self.cb_kiwibot_status,
+            qos_profile=qos_profile_sensor_data,
+            callback_group=self.callback_group,
+        )
         self.turn_robot(heading_angle=float(os.getenv("BOT_INITIAL_YAW", default=0.0)))
         self.msg_kiwibot.pos_x = int(os.getenv("BOT_INITIAL_X", default=917))
         self.msg_kiwibot.pos_y = int(os.getenv("BOT_INITIAL_Y", default=1047))
