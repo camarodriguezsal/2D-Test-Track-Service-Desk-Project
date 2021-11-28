@@ -498,22 +498,22 @@ class PlannerNode(Node):
         v_maxx = dt * a_x
         v_maxy = dt * a_y
         for i in n:
-            if t:
-                v_x[n + 1] = v_x[n] + a_x * dt
-                v_y[n + 1] = v_y[n] + a_y * dt
-                x[n + 1] = x[n] + v_x[n] * dt
-                y[n + 1] = y[n] + v_y[n] * dt
+            if dt * i < t:
+                v_x[i + 1] = v_x[i] + a_x * dt
+                v_y[i + 1] = v_y[i] + a_y * dt
+                x[i + 1] = x[i] + v_x[i] * dt
+                y[i + 1] = y[i] + v_y[i] * dt
 
-            elif ():
-                v_x[n + 1] = v_maxx
-                v_y[n + 1] = v_maxy
-                x[n + 1] = x[n] + v_x[n] * dt
-                y[n + 1] = y[n] + v_y[n] * dt
+            elif dt * i < (time - t):
+                v_x[i + 1] = v_maxx
+                v_y[i + 1] = v_maxy
+                x[y + 1] = x[i] + v_x[i] * dt
+                y[y + 1] = y[i] + v_y[i] * dt
             else:
-                v_x[n + 1] = v_x[n] - a_x * dt
-                v_y[n + 1] = v_y[n] - a_y * dt
-                x[n + 1] = x[n] + v_x[n] * dt
-                y[n + 1] = y[n] + v_y[n] * dt
+                v_x[i + 1] = v_x[i] - a_x * dt
+                v_y[i + 1] = v_y[i] - a_y * dt
+                x[i + 1] = x[i] + v_x[i] * dt
+                y[i + 1] = y[i] + v_y[i] * dt
 
         pt = int((x, y))
         way_points = [pt, t, dt]
