@@ -481,6 +481,42 @@ class PlannerNode(Node):
 
         # ---------------------------------------------------------------------
 
+        distance = ((src[0] - dst[0]) ** 2 + (src[1] - dst[1]) ** 2) ** 0.5
+        C = distance / (pt * 1000)  # para pasarlo de m a mm
+        a = pt * 1000
+        t = float((-time + (time ** 2 - (-4 * C)) ** (0.5)) / (-2))
+        dt = float(time / n)
+        x = np.zeros(30)
+        y = np.zeros(30)
+        x[0] = src[0]
+        y[0] = src[1]
+        angulo = np.arctan2(dst[1] - src[1], dst[0] - src[0])
+        a_x = a * np.cos(angulo)
+        a_y = a * np.sin(angulo)
+        v_x = np.zeros(30)
+        v_y = np.zeros(30)
+        v_maxx = dt * a_x
+        v_maxy = dt * a_y
+        for i in n:
+            if t:
+                v_x[n + 1] = v_x[n] + a_x * dt
+                v_y[n + 1] = v_y[n] + a_y * dt
+                x[n + 1] = x[n] + v_x[n] * dt
+                y[n + 1] = y[n] + v_y[n] * dt
+
+            elif ():
+                v_x[n + 1] = v_maxx
+                v_y[n + 1] = v_maxy
+                x[n + 1] = x[n] + v_x[n] * dt
+                y[n + 1] = y[n] + v_y[n] * dt
+            else:
+                v_x[n + 1] = v_x[n] - a_x * dt
+                v_y[n + 1] = v_y[n] - a_y * dt
+                x[n + 1] = x[n] + v_x[n] * dt
+                y[n + 1] = y[n] + v_y[n] * dt
+
+        pt = int((x, y))
+        way_points = [pt, t, dt]
         return way_points
 
     def get_profile_turn(self, dst: float, time: float, pt=0.3, n=30) -> list:
