@@ -76,7 +76,8 @@ class VisualsNode(Thread, Node):
 
         self._kiwibot_img_path = "/workspace/planner/media/images/kiwibot.png"
         self._kiwibot_img = cv2.imread(self._kiwibot_img_path, cv2.IMREAD_UNCHANGED)
-
+        print(self._kiwibot_img.shape)
+        print(self._win_background.shape)
         # ---------------------------------------------------------------------
         # Subscribers
 
@@ -117,13 +118,13 @@ class VisualsNode(Thread, Node):
 
         # Publisher for activating the routines
         # Uncomment
-        # self.msg_path_number = Int32()
-        # self.pub_start_routine = self.create_publisher(
-        #     msg_type=Int32,
-        #     topic="/graphics/start_routine",
-        #     qos_profile=1,
-        #     callback_group=self.callback_group,
-        # )
+        self.msg_path_number = Int32()
+        self.pub_start_routine = self.create_publisher(
+            msg_type=Int32,
+            topic="/graphics/start_routine",
+            qos_profile=1,
+            callback_group=self.callback_group,
+        )
 
         # ---------------------------------------------------------------------
         self.damon = True
@@ -334,7 +335,11 @@ class VisualsNode(Thread, Node):
         Returns:
             _: Image with robot drawn
         """
-
+        l = pos[0] - 48
+        t = pos[1] + 46
+        r = pos[0] + 49
+        b = pos[1] - 46
+        l_img[l:r, b:t] = s_img[:, :, 0:3]
         # -----------------------------------------
         # Insert you solution here
 
@@ -357,10 +362,10 @@ class VisualsNode(Thread, Node):
         win_img, robot_coord = self.crop_map(coord=coord)
 
         # Draws robot in maps image
-        # if coord[0] and coord[1]:
-        #     win_img = self.draw_robot(
-        #         l_img=win_img, s_img=self._kiwibot_img, pos=robot_coord
-        #     )
+        if coord[0] and coord[1]:
+            win_img = self.draw_robot(
+                l_img=win_img, s_img=self._kiwibot_img, pos=robot_coord
+            )
 
         # Draw descriptions
         str_list = [
@@ -396,7 +401,7 @@ class VisualsNode(Thread, Node):
             fontScale=0.4,
         )
 
-        porc = "???"
+        porc = ""
         win_img = print_list_text(
             win_img,
             [f"Porc: {porc}%"],
