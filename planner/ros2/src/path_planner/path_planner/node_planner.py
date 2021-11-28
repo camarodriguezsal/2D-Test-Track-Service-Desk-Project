@@ -320,7 +320,7 @@ class PlannerNode(Node):
                         dst=self.way_points["coords"][idx + 1],
                         time=self.way_points["times"][idx],
                         pt=self._FORWARE_ACELERATION_FC,
-                        n=self._FORWARE_CRTL_POINTS,
+                        n=int(self._FORWARE_CRTL_POINTS),
                     )
 
                     # Move the robot to the next landmark
@@ -483,21 +483,21 @@ class PlannerNode(Node):
 
         distance = ((src[0] - dst[0]) ** 2 + (src[1] - dst[1]) ** 2) ** 0.5
         C = distance / (pt * 1000)  # para pasarlo de m a mm
-        a = pt * 1000
+        a = pt * 10000
         t = float((-time + (time ** 2 - (-4 * C)) ** (0.5)) / (-2))
         dt = float(time / n)
-        x = np.zeros(30)
-        y = np.zeros(30)
+        x = np.zeros(n)
+        y = np.zeros(n)
         x[0] = src[0]
         y[0] = src[1]
         angulo = np.arctan2(dst[1] - src[1], dst[0] - src[0])
         a_x = a * np.cos(angulo)
         a_y = a * np.sin(angulo)
-        v_x = np.zeros(30)
-        v_y = np.zeros(30)
+        v_x = np.zeros(n)
+        v_y = np.zeros(n)
         v_maxx = dt * a_x
         v_maxy = dt * a_y
-        for i in n:
+        for i in range(n - 1):
             if dt * i < t:
                 v_x[i + 1] = v_x[i] + a_x * dt
                 v_y[i + 1] = v_y[i] + a_y * dt
@@ -506,8 +506,8 @@ class PlannerNode(Node):
             elif dt * i < (time - t):
                 v_x[i + 1] = v_maxx
                 v_y[i + 1] = v_maxy
-                x[y + 1] = x[i] + v_x[i] * dt
-                y[y + 1] = y[i] + v_y[i] * dt
+                x[i + 1] = x[i] + v_x[i] * dt
+                y[i + 1] = y[i] + v_y[i] * dt
             else:
                 v_x[i + 1] = v_x[i] - a_x * dt
                 v_y[i + 1] = v_y[i] - a_y * dt

@@ -426,7 +426,7 @@ class VisualsNode(Thread, Node):
         for i in land_marks:
             cv2.circle(
                 img=self._win_background,
-                center=(land_marks.x, land_marks.y),
+                center=(i.x, i.y),
                 radius=6,
                 color=(0, 0, 255),
                 thickness=2,
@@ -471,11 +471,11 @@ class VisualsNode(Thread, Node):
                     continue
                 # Key1=1048633 & Key9=1048625
                 elif key >= 49 and key <= 57:
-                    printlog(
-                        msg=f"Code is broken here",
-                        msg_type="WARN",
-                    )
-                    continue
+                    # printlog(
+                    #    msg=f"Code is broken here",
+                    #    msg_type="WARN",
+                    # )
+                    # continue
                     printlog(
                         msg=f"Routine {chr(key)} was sent to path planner node",
                         msg_type="INFO",
