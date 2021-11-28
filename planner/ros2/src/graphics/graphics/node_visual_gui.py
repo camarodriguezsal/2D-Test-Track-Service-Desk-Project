@@ -157,6 +157,7 @@ class VisualsNode(Thread, Node):
             self.turn_robot(
                 heading_angle=float(os.getenv("BOT_INITIAL_YAW", default=0.0))
             )
+            print(self.msg_planner.land_marks)
             self.draw_descriptors(self.msg_planner.land_marks)
 
         except Exception as e:
@@ -422,8 +423,14 @@ class VisualsNode(Thread, Node):
 
         # -----------------------------------------
         # Insert you solution here
-        pass
-
+        for i in land_marks:
+            cv2.circle(
+                img=self._win_background,
+                center=(land_marks.x, land_marks.y),
+                radius=6,
+                color=(0, 255, 0),
+                thickness=2,
+            )
         # -----------------------------------------
 
     def run(self) -> None:
