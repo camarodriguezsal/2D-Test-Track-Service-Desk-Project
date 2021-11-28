@@ -25,7 +25,7 @@ from rclpy.qos import qos_profile_sensor_data
 from rclpy.logging import get_logger
 from rclpy.node import Node
 
-from utils.python_utils import printlog
+from utils.python_utils import overlay_image, printlog
 from utils.python_utils import print_list_text
 
 from usr_msgs.msg import Planner as planner_msg
@@ -335,14 +335,10 @@ class VisualsNode(Thread, Node):
         Returns:
             _: Image with robot drawn
         """
-        l = pos[0] - 48
-        t = pos[1] + 46
-        r = pos[0] + 49
-        b = pos[1] - 46
-        l_img[l:r, b:t] = s_img[:, :, 0:3]
+
         # -----------------------------------------
         # Insert you solution here
-
+        l_img = overlay_image(l_img, s_img, pos, transparency)
         return l_img  # remove this line when implement your solution
 
         # -----------------------------------------
