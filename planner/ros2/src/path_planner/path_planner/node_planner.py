@@ -503,7 +503,6 @@ class PlannerNode(Node):
                 v_y[i + 1] = v_y[i] + a_y * dt
                 x[i + 1] = x[i] + v_x[i] * dt
                 y[i + 1] = y[i] + v_y[i] * dt
-
             elif dt * i < (time - t):
                 v_x[i + 1] = v_maxx
                 v_y[i + 1] = v_maxy
@@ -514,9 +513,8 @@ class PlannerNode(Node):
                 v_y[i + 1] = v_y[i] - a_y * dt
                 x[i + 1] = x[i] + v_x[i] * dt
                 y[i + 1] = y[i] + v_y[i] * dt
+            way_points.append({"idx": i, "pt": (x[i], y[i]), "t": dt * i, "dt": dt})
 
-        pt = int((x, y))
-        way_points = [pt, t, dt]
         return way_points
 
     def get_profile_turn(self, dst: float, time: float, pt=0.3, n=30) -> list:

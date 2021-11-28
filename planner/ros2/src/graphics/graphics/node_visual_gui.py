@@ -221,7 +221,7 @@ class VisualsNode(Thread, Node):
             cv2.circle(
                 img=self._win_background,
                 center=tuple(coord),
-                radius=50,
+                radius=2,
                 color=(0, 0, 255),
                 thickness=-1,
             )
