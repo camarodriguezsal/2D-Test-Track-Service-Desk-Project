@@ -135,25 +135,44 @@ Respond below every questions:
 
 1. [Python] Why the robot's image gets distorted when is turning?
 
+Eso pasa porque al rotar la matriz de la imagen, se pirde informacion porque se tiene que reorganizar la informacion para ya no estar en en fomar rectangular sino en forma deparalelipedo alargado en la transicion de la rotacion
+
 2. [Python] are Python packages compiled as C++ packages?
+
+Si pero con extesiones para python, por lo general, están ahí para mejorar el rendimiento o acceder a funciones de bajo nivel que no están en Python.
 
 3. [Python] Why with some code errors in some nodes the logs are not printed?
 
+Porque se especifica que se se puede contianiar sin importar que haya error.
+
 4. [Control] What other turn or speed profile would you implement, why, and what are the benefits?
+
+Con las esquinas del trapezoide suavizadas, ya que eso se traduce en cambios suaves en la acelaracion de desacelaracion del sevo 
 
 5. [C++] What is the mean of the number "15" used in the pthread_kill inside the destructor method?
 
+El 15 corresponde a la señal que para un proceso en ejecucion de manera gentil
+
 6. [C++] Why are we using UniquePointer instead of SharedPointers to publish a ROS2 message?
+
+Utilizar unique_ptr cuando desee ya que tener una propiedad única (exclusiva) del recurso. Solo un unique_ptr puede apuntar a un recurso. Dado que puede haber un unique_ptr para un solo recurso, no es posible copiar un unique_ptr a otro. Como contrario muchos shared_ptr pueden apuntar a un solo recurso. shared_ptr mantiene el recuento de referencias para esta propuesta. cuando todos los puntos compartidos que apuntan al recurso quedan fuera del alcance, el recurso se destruye.
 
 7. [C++] Why are we using a m_multi_sound variable? Explain ...
 
 8. [C++] Why are we freeing the memory allocated by raw pointer "buff" variable and not freeing the memory allocated by the Shared and Unique Pointers? (HARD)
 
+
 10. [Docker] Explain with your own words what is the instructions `apt-get autoremove && apt-get clean -y for?`
+
+El auto remove elimina la dependencias que no se usan y el clean elimina los paquetes intalados automaticamente
 
 11. [Docker] If you modify a layer what happen with the previous and the next ones?
 
-12. [Docker] Can we change the basic image (`FROM ubuntu:20.04`) from the docker file to another?
+Si realiza un cambio en su Dockerfile, Docker construirá solo la capa que se cambió y las posteriores. Esto se llama  layer caching.
+
+12. [Docker] Can we change the basic image (`FROM ubuntu:20.04`) from the docker file to another
+
+En principio no ya que ROS2 corre en esta version de ubuntu y cualquier otra imagen no dejaria trabajar en el poyecto en si 
 
 Next questions is after you finish the project, it doesn't give points but we really appreciate you feedback:
 * What do you think about this project? is it hard or enough? is it to complicated, is it well structure, explanations and instructions are clear?
