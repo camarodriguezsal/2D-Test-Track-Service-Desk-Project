@@ -302,7 +302,7 @@ class PlannerNode(Node):
                                 dst=dang,
                                 time=self._TURN_TIME,
                                 pt=self._TURN_ACELERATION_FC,
-                                n=self._TURN_CRTL_POINTS,
+                                n=int(self._TURN_CRTL_POINTS),
                             )
                         ]
 
@@ -481,10 +481,10 @@ class PlannerNode(Node):
 
         # ---------------------------------------------------------------------
 
-        distance = ((src[0] - dst[0]) ** 2 + (src[1] - dst[1]) ** 2) ** 0.5
-        C = distance / (pt * 1000)  # para pasarlo de m a mm
-        a = pt * 10000
-        t = float((-time + (time ** 2 - (-4 * C)) ** (0.5)) / (-2))
+        distance = float(((src[0] - dst[0]) ** 2 + (src[1] - dst[1]) ** 2) ** 0.5)
+        a = pt * 5500
+        C = float(distance / (a))  # para pasarlo de m a mm
+        t = float((-time + (time ** 2 - (-4 * C)) ** (0.5)) / (2))
         dt = float(time / n)
         x = np.zeros(n)
         y = np.zeros(n)
@@ -495,8 +495,8 @@ class PlannerNode(Node):
         a_y = a * np.sin(angulo)
         v_x = np.zeros(n)
         v_y = np.zeros(n)
-        v_maxx = dt * a_x
-        v_maxy = dt * a_y
+        v_maxx = t * a_x
+        v_maxy = t * a_y
         for i in range(n - 1):
             if dt * i < t:
                 v_x[i + 1] = v_x[i] + a_x * dt
@@ -513,7 +513,9 @@ class PlannerNode(Node):
                 v_y[i + 1] = v_y[i] - a_y * dt
                 x[i + 1] = x[i] + v_x[i] * dt
                 y[i + 1] = y[i] + v_y[i] * dt
-            way_points.append({"idx": i, "pt": (x[i], y[i]), "t": dt * i, "dt": dt})
+            way_points.append(
+                {"idx": i, "pt": (x[i + 1], y[i + 1]), "t": dt * i, "dt": dt}
+            )
 
         return way_points
 
@@ -551,6 +553,26 @@ class PlannerNode(Node):
         # Do not forget and respect the keys names
 
         # ---------------------------------------------------------------------
+
+        a = pt * 1000
+        print(a)
+        C = dst / (a)  # para pasarlo de m a mm
+        t = float((-time + (time ** 2 - (-4 * C)) ** (0.5)) / (2))
+        dt = float(time / n)
+        x = np.zeros(n)
+        v = np.zeros(n)
+        v_max = t * a
+        for i in range(n - 1):
+            if dt * i < t:
+                v[i + 1] = v[i] + a * dt
+                x[i + 1] = x[i] + v[i] * dt
+            elif dt * i < (time - t):
+                v[i + 1] = v_max
+                x[i + 1] = x[i] + v[i] * dt
+            else:
+                v[i + 1] = v[i] - a * dt
+                x[i + 1] = x[i] + v[i] * dt
+            turn_points.append({"idx": i, "a": (x[i]), "t": dt * i, "dt": dt})
 
         return turn_points
 

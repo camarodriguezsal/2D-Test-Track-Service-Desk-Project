@@ -339,7 +339,7 @@ class VisualsNode(Thread, Node):
 
         # -----------------------------------------
         # Insert you solution here
-        l_img = overlay_image(l_img, s_img, pos, transparency)
+        l_img = overlay_image(l_img, s_img, pos, transparency, True)
         return l_img  # remove this line when implement your solution
 
         # -----------------------------------------
