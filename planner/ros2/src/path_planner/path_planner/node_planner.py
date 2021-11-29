@@ -554,25 +554,25 @@ class PlannerNode(Node):
 
         # ---------------------------------------------------------------------
 
-        a = pt * 1000
-        print(a)
-        C = dst / (a)  # para pasarlo de m a mm
-        t = float((-time + (time ** 2 - (-4 * C)) ** (0.5)) / (2))
-        dt = float(time / n)
-        x = np.zeros(n)
-        v = np.zeros(n)
-        v_max = t * a
-        for i in range(n - 1):
-            if dt * i < t:
-                v[i + 1] = v[i] + a * dt
-                x[i + 1] = x[i] + v[i] * dt
-            elif dt * i < (time - t):
-                v[i + 1] = v_max
-                x[i + 1] = x[i] + v[i] * dt
-            else:
-                v[i + 1] = v[i] - a * dt
-                x[i + 1] = x[i] + v[i] * dt
-            turn_points.append({"idx": i, "a": (x[i]), "t": dt * i, "dt": dt})
+        # a = pt * 1000
+        # print(a)
+        # C = dst / (a)  # para pasarlo de m a mm
+        # t = float((-time + (time ** 2 - (-4 * C)) ** (0.5)) / (2))
+        # dt = float(time / n)
+        # x = np.zeros(n)
+        # v = np.zeros(n)
+        # v_max = t * a
+        # for i in range(n - 1):
+        #    if dt * i < t:
+        #        v[i + 1] = v[i] + a * dt
+        #        x[i + 1] = x[i] + v[i] * dt
+        #    elif dt * i < (time - t):
+        #        v[i + 1] = v_max
+        #        x[i + 1] = x[i] + v[i] * dt
+        #    else:
+        #        v[i + 1] = v[i] - a * dt
+        #        x[i + 1] = x[i] + v[i] * dt
+        #    turn_points.append({"idx": i, "a": (x[i]), "t": dt * i, "dt": dt})
 
         return turn_points
 

@@ -398,7 +398,16 @@ class VisualsNode(Thread, Node):
             fontScale=0.4,
         )
 
-        porc = ""
+        porc = int(
+            (
+                1
+                / (
+                    (self.msg_planner.duration + 0.00001)
+                    / (self.msg_kiwibot.time + 0.00001)
+                )
+            )
+            * 100
+        )
         win_img = print_list_text(
             win_img,
             [f"Porc: {porc}%"],
