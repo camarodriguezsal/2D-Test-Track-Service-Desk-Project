@@ -482,22 +482,22 @@ class PlannerNode(Node):
         # ---------------------------------------------------------------------
 
         distance = float(((src[0] - dst[0]) ** 2 + (src[1] - dst[1]) ** 2) ** 0.5)
-        a = pt * 5500
+        a = pt * 7000
         C = float(distance / (a))  # para pasarlo de m a mm
         t = float((-time + (time ** 2 - (-4 * C)) ** (0.5)) / (2))
         dt = float(time / n)
-        x = np.zeros(n)
-        y = np.zeros(n)
+        x = np.zeros(n + 1)
+        y = np.zeros(n + 1)
         x[0] = src[0]
         y[0] = src[1]
         angulo = np.arctan2(dst[1] - src[1], dst[0] - src[0])
         a_x = a * np.cos(angulo)
         a_y = a * np.sin(angulo)
-        v_x = np.zeros(n)
-        v_y = np.zeros(n)
+        v_x = np.zeros(n + 1)
+        v_y = np.zeros(n + 1)
         v_maxx = t * a_x
         v_maxy = t * a_y
-        for i in range(n - 1):
+        for i in range(n):
             if dt * i < t:
                 v_x[i + 1] = v_x[i] + a_x * dt
                 v_y[i + 1] = v_y[i] + a_y * dt
@@ -558,10 +558,10 @@ class PlannerNode(Node):
         C = dst / (a)
         t = float((-time + (time ** 2 - (-4 * C)) ** (0.5)) / (2))
         dt = float(time / n)
-        x = np.zeros(n)
-        v = np.zeros(n)
+        x = np.zeros(n + 1)
+        v = np.zeros(n + 1)
         v_max = t * a
-        for i in range(n - 1):
+        for i in range(n):
             if dt * i < t:
                 v[i + 1] = v[i] + a * dt
                 x[i + 1] = x[i] + v[i] * dt
@@ -571,9 +571,7 @@ class PlannerNode(Node):
             else:
                 v[i + 1] = v[i] - a * dt
                 x[i + 1] = x[i] + v[i] * dt
-            print(x[i])
             turn_points.append({"idx": i, "a": x[i], "t": dt * i, "dt": dt})
-
         return turn_points
 
 

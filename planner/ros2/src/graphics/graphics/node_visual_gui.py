@@ -402,8 +402,8 @@ class VisualsNode(Thread, Node):
             (
                 1
                 / (
-                    (self.msg_planner.duration + 0.00001)
-                    / (self.msg_kiwibot.time + 0.00001)
+                    (self.msg_planner.distance + 0.00001)
+                    / (self.msg_kiwibot.dist + 0.00001)
                 )
             )
             * 100
