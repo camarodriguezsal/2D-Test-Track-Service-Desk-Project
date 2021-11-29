@@ -573,7 +573,7 @@ class PlannerNode(Node):
                 x[i + 1] = x[i] + v[i] * dt
             print(x[i])
             turn_points.append({"idx": i, "a": x[i], "t": dt * i, "dt": dt})
-        turn_points = []
+
         return turn_points
 
 
